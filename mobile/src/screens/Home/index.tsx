@@ -14,9 +14,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.1.3:3333/games")
+    fetch("http://192.168.0.195:3333/games")
       .then((response) => response.json())
       .then((data) => setGames(data));
+    {
+      console.log(games);
+    }
   }, []);
   return (
     <Background>
@@ -26,6 +29,7 @@ const Home = () => {
           title="Encontre seu duo!"
           subtitle="Selecione o game que deseja jogar."
         />
+
         <FlatList
           data={games}
           keyExtractor={(item) => item.id}

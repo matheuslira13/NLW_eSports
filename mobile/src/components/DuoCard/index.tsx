@@ -16,7 +16,7 @@ export interface DuoCardProps {
 
 interface Props {
   data: DuoCardProps;
-  onConect: () => void;
+  onConect: any;
 }
 
 export const DuoCard = ({ data, onConect }: Props) => {
@@ -35,7 +35,7 @@ export const DuoCard = ({ data, onConect }: Props) => {
           data.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT
         }
       />
-      <TouchableOpacity style={styles.button} onPress={onConect}>
+      <TouchableOpacity style={styles.button} onPress={() => onConect(true)}>
         <GameController color={THEME.COLORS.TEXT} size={20} />
         <Text style={styles.buttonTitle}>Conectar</Text>
       </TouchableOpacity>
