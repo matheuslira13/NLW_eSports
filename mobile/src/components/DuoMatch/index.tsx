@@ -41,7 +41,6 @@ export const DuoMatch = ({ discord, onClose, ...rest }: Props) => {
               size={20}
               color={THEME.COLORS.CAPTION_500}
             />
-            bla
           </TouchableOpacity>
           <CheckCircle size={64} color={THEME.COLORS.SUCCESS} weight="bold" />
           <Header
