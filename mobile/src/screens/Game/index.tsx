@@ -4,8 +4,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 import logoImg from "../../assets/logo-nlw-esports.png";
+
 import { Entypo } from "@expo/vector-icons";
-import { Header, DuoCardProps, Background, DuoCard } from "../../components";
+import {
+  Header,
+  DuoCardProps,
+  Background,
+  DuoCard,
+  DuoMatch,
+} from "../../components";
 import { THEME } from "../../theme";
 
 interface GameParams {
@@ -16,9 +23,10 @@ interface GameParams {
 
 const Game = () => {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
+  const [discordDuoSelected, setDiscordDuoSelected] = useState(false);
 
   useEffect(() => {
-    fetch(`http://192.168.1.3:3333/games/${game.id}/ads`)
+    fetch(`http://192.168.0.195:3333/games/${game.id}/ads`)
       .then((response) => response.json())
       .then((data) => setDuos(data));
   }, []);
@@ -26,6 +34,7 @@ const Game = () => {
   const route = useRoute();
   const game = route.params as GameParams;
   const navigation = useNavigation();
+
   return (
     <Background>
       <SafeAreaView style={styles.container}>
@@ -49,7 +58,9 @@ const Game = () => {
         <FlatList
           data={duos}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <DuoCard data={item} onConect={() => {}} />}
+          renderItem={({ item }) => (
+            <DuoCard data={item} onConect={setDiscordDuoSelected} />
+          )}
           horizontal
           style={styles.containerList}
           contentContainerStyle={[
@@ -63,6 +74,11 @@ const Game = () => {
               </Text>
             );
           }}
+        />
+        <DuoMatch
+          visible={discordDuoSelected}
+          discord="exemplo"
+          onClose={setDiscordDuoSelected}
         />
       </SafeAreaView>
     </Background>
