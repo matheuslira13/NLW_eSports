@@ -24,12 +24,19 @@ interface GameParams {
 const Game = () => {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
   const [discordDuoSelected, setDiscordDuoSelected] = useState(false);
+  const [discordIdProfile, setDiscordIdProfile] = useState("");
 
   useEffect(() => {
-    fetch(`http://192.168.0.195:3333/games/${game.id}/ads`)
+    fetch(`http://192.168.1.11:3333/games/${game.id}/ads`)
       .then((response) => response.json())
       .then((data) => setDuos(data));
   }, []);
+
+  async function getDiscordUser(adsId: string) {
+    fetch(`http://192.168.1.11:3333/ads/${adsId}/discord`)
+      .then((response) => response.json())
+      .then((data) => setDiscordIdProfile(data.discord));
+  }
 
   const route = useRoute();
   const game = route.params as GameParams;
@@ -59,7 +66,11 @@ const Game = () => {
           data={duos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <DuoCard data={item} onConect={setDiscordDuoSelected} />
+            <DuoCard
+              data={item}
+              onConect={() => getDiscordUser(item.id)}
+              get={setDiscordDuoSelected}
+            />
           )}
           horizontal
           style={styles.containerList}
@@ -77,7 +88,7 @@ const Game = () => {
         />
         <DuoMatch
           visible={discordDuoSelected}
-          discord="exemplo"
+          discord={discordIdProfile}
           onClose={setDiscordDuoSelected}
         />
       </SafeAreaView>

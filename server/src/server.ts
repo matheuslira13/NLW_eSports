@@ -57,12 +57,15 @@ app.get("/ads/:id/discord", async (request, response) => {
     select: {
       discord: true,
     },
+
     where: {
       id: adId,
     },
   });
 
-  return response.json({ ad }).status(200);
+  return response.json({
+    discord: ad.discord,
+  });
 });
 
 app.post("/games/:id/ads", async (request, response) => {

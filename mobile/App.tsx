@@ -25,7 +25,7 @@ export default function App() {
   useEffect(() => {
     getPushNotificationListener.current =
       Notifications.addNotificationResponseReceivedListener((notifications) =>
-        console.log("show")
+        console.log(notifications)
       );
     responseNotificationListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {

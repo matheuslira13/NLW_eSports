@@ -14,11 +14,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.0.195:3333/games")
+    fetch("http://192.168.1.11:3333/games")
       .then((response) => response.json())
       .then((data) => setGames(data));
     {
-      console.log(games);
     }
   }, []);
   return (
