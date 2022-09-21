@@ -33,10 +33,8 @@ export const CreateAdModal = ({ games }: Props) => {
         useVoiceChannel: useVoiceChannel,
       });
       alert("Anúncio criado com sucesso!");
-      console.log("foi");
     } catch (e) {
       console.log(e);
-      alert("Falha");
     }
   }
   return (

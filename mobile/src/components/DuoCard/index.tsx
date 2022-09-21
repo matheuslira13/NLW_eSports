@@ -3,6 +3,7 @@ import { GameController } from "phosphor-react-native";
 import { styles } from "./styles";
 import { DuoInfo } from "../";
 import { THEME } from "../../theme";
+import { Dispatch, SetStateAction } from "react";
 
 export interface DuoCardProps {
   id: string;
@@ -16,10 +17,15 @@ export interface DuoCardProps {
 
 interface Props {
   data: DuoCardProps;
-  onConect: any;
+  onConect: () => void;
+  get: Dispatch<SetStateAction<boolean>>;
 }
 
-export const DuoCard = ({ data, onConect }: Props) => {
+export const DuoCard = ({ data, onConect, get }: Props) => {
+  const monstro = () => {
+    get(true);
+    onConect();
+  };
   return (
     <View style={styles.container}>
       <DuoInfo label="Nome" value={data.name} />
@@ -35,7 +41,7 @@ export const DuoCard = ({ data, onConect }: Props) => {
           data.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT
         }
       />
-      <TouchableOpacity style={styles.button} onPress={() => onConect(true)}>
+      <TouchableOpacity style={styles.button} onPress={monstro}>
         <GameController color={THEME.COLORS.TEXT} size={20} />
         <Text style={styles.buttonTitle}>Conectar</Text>
       </TouchableOpacity>
